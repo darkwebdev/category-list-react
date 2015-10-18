@@ -3,79 +3,35 @@ import _ from 'lodash';
 
 import CatModel from '../src/CatModel';
 
+import fake from './fake';
+
 describe('Category Model', () => {
     'use strict';
 
-    const fakeCat = {
-        id: '20',
-        name: 'new cat',
-        number: '0'
-    };
-    const fakeCatList = [
-        {
-            id: '76',
-            name: 'cat1',
-            number: '12'
-        },
-        {
-            id: '98',
-            name: 'cat2',
-            number: '123'
-        }
-    ];
-    const increasedCatList = [
-        {
-            id: '76',
-            name: 'cat1',
-            number: '12'
-        },
-        {
-            id: '98',
-            name: 'cat2',
-            number: '123'
-        },
-        {
-            id: '20',
-            name: 'new cat',
-            number: '0'
-        }
-    ];
-    const decreasedCatList = [
-        {
-            id: '98',
-            name: 'cat2',
-            number: '123'
-        }
-    ];
-    const fakeStorage = {
-        getItem: _.constant(JSON.stringify(fakeCatList)),
-        setItem: _.noop
-    };
-
     it('should get saved categories from storage', () => {
-        const catList = new CatModel(fakeStorage).collection;
+        const catList = new CatModel(fake.storage).collection;
 
-        expect(catList).to.deep.equal(fakeCatList);
+        expect(catList).to.deep.equal(fake.catList);
     });
 
     it('should add a new Category', () => {
-        const catModel = new CatModel(fakeStorage);
+        const catModel = new CatModel(fake.storage);
 
-        expect(catModel.collection).to.deep.equal(fakeCatList);
+        expect(catModel.collection).to.deep.equal(fake.catList);
 
-        catModel.add(fakeCat);
+        catModel.add(fake.catItem);
 
-        expect(catModel.collection).to.deep.equal(increasedCatList);
+        expect(catModel.collection).to.deep.equal(fake.increasedCatList);
     });
 
     it('should remove a Category', () => {
-        const catModel = new CatModel(fakeStorage);
+        const catModel = new CatModel(fake.storage);
 
-        expect(catModel.collection).to.deep.equal(fakeCatList);
+        expect(catModel.collection).to.deep.equal(fake.catList);
 
-        catModel.remove('76');
+        catModel.remove('2');
 
-        expect(catModel.collection).to.deep.equal(decreasedCatList);
+        expect(catModel.collection).to.deep.equal(fake.decreasedCatList);
     });
 });
 
