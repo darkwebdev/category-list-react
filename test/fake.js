@@ -2,8 +2,9 @@ import sinon from 'sinon';
 import _ from 'lodash';
 import React from 'react';
 import TestUtils from 'react-addons-test-utils';
+import $ from 'teaspoon';
 
-import App from '../src/App';
+import App from '../src/App';//todo: remove it from here
 
 const catItem = {
     id: '20',
@@ -75,7 +76,7 @@ const storage = {
     setItem: _.noop
 };
 
-class Renderer {
+class AppRenderer {
     constructor(props) {
         const appProps = _.extend({ catModel: catModel }, App.defaultProps, props);
 
@@ -94,6 +95,11 @@ class Renderer {
     }
 }
 
+const renderComp = (Comp, props) => {
+    const comp = new Comp(_.extend({}, Comp.defaultProps || {}, props));
+    return $(comp.render()).shallowRender();
+};
+
 export default {
     catItem: catItem,
     catList: catList,
@@ -101,5 +107,6 @@ export default {
     decreasedCatList: decreasedCatList,
     catModel: catModel,
     storage: storage,
-    Renderer: Renderer
+    AppRenderer: AppRenderer,
+    renderComp: renderComp
 };
