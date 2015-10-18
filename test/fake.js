@@ -30,6 +30,14 @@ const catList = [
     }
 ];
 
+const searchText = 'three';
+
+const foundCatList = [{
+    id: '3',
+    name: 'cat number three',
+    number: '1'
+}];
+
 const increasedCatList = [
     {
         id: '1',
@@ -68,7 +76,8 @@ const decreasedCatList = [
 const catModel = {
     collection: catList,
     add: sinon.spy(),
-    remove: sinon.spy()
+    remove: sinon.spy(),
+    search: _.constant(foundCatList)
 };
 
 const storage = {
@@ -90,6 +99,9 @@ class AppRenderer {
     getNewCat() {
         return this.renderer.getRenderOutput().props.children[0];
     }
+    getSearch() {
+        return this.renderer.getRenderOutput().props.children[1];
+    }
     getCatList() {
         return this.renderer.getRenderOutput().props.children[2];
     }
@@ -101,6 +113,8 @@ const renderComp = (Comp, props) => {
 };
 
 export default {
+    searchText: searchText,
+    foundCatList: foundCatList,
     catItem: catItem,
     catList: catList,
     increasedCatList: increasedCatList,
