@@ -5,6 +5,8 @@ import NewCat from '../src/NewCat';
 import Search from '../src/Search';
 import CatList from '../src/CatList';
 
+import App from '../src/App';
+
 import fake from './fake';
 
 describe('App', () => {
@@ -14,7 +16,7 @@ describe('App', () => {
 
     describe('by default', () => {
         beforeEach(() => {
-            $app = fake.renderComp({ catModel: fake.catModel });
+            $app = fake.renderComp(App, { catModel: fake.catModel });
         });
 
         it('should show Add Category input in default state', () => {
