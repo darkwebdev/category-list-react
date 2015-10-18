@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import React from 'react';
 
-import dispatcher from './dispatcher';
 import CatItem from './CatItem';
 
 export default class extends React.Component {
@@ -9,13 +9,7 @@ export default class extends React.Component {
         this.state = {
             list: props.list
         };
-    }
-
-    removeHandler(cat) {
-        dispatcher.dispatch({
-            actionType: 'remove-cat',
-            cat: cat
-        });
+        this.removeHandler = props.onRemove || _.noop;
     }
 
     render() {
@@ -26,7 +20,7 @@ export default class extends React.Component {
                         key={ cat.id }
                         name={ cat.name }
                         number={ cat.number }
-                        onRemove={ this.removeHandler.bind(this, cat) }
+                        onRemove={ this.removeHandler.bind(this, cat.id) }
                     />
                 )}
             </ul>
