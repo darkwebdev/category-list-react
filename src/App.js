@@ -37,6 +37,11 @@ export default class App extends React.Component {
     removeCat(id) {
         this.catModel.remove(id);
     }
+    searchCat(text) {
+        this.setState({
+            catList: this.catModel.search(text)
+        });
+    }
 
     render() {
         return (
@@ -48,6 +53,7 @@ export default class App extends React.Component {
                 />
                 <Search
                     active={ this.state.searchActive }
+                    onSearch={ this.searchCat.bind(this) }
                 />
                 <CatList
                     list={ this.state.catList }

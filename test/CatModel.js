@@ -33,5 +33,13 @@ describe('Category Model', () => {
 
         expect(catModel.collection).to.deep.equal(fake.decreasedCatList);
     });
+
+    it('should search inside the names of Categories', () => {
+        const catModel = new CatModel(fake.storage);
+
+        const foundCatList = catModel.search(fake.searchText);
+
+        expect(foundCatList).to.deep.equal(fake.foundCatList);
+    });
 });
 

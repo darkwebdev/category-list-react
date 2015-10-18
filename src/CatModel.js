@@ -18,4 +18,7 @@ export default class {
     add(item) {
         this.collection = this.collection.concat([item]);
     }
+    search(text) {
+        return this.collection.filter(model => model.name.indexOf(text) !== -1);
+    }
 }
