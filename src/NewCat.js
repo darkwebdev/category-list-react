@@ -34,9 +34,9 @@ export default class extends React.Component {
                        onChange={ this.changeHandler.bind(this) }
                        value={ this.state.value }
                 />
-                <span className={ 'new-cat-hint' + (this.state.value ? ' visible' : '') }>
+                <button type="submit" className={ 'new-cat-hint' + (this.state.value ? ' visible' : '') }>
                     Press <i>Enter</i> to confirm
-                </span>
+                </button>
             </form>
         );
     }

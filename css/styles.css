@@ -37,6 +37,8 @@ main {
 .new-cat-hint {
     visibility: hidden;
     font-size: 15px;
+    background: none;
+    border: none;
 }
 i {
     color: #00A3C3;
