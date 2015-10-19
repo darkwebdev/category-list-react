@@ -25,6 +25,14 @@ describe('Search input', () => {
 
             expect(fakeSearchHandler).to.be.calledWith(fake.searchText);
         });
+        it('should call Search handler with empty search text', () => {
+            const $comp = fake.renderComp(Search, { active: false, onSearch: fakeSearchHandler });
+            const form = $comp.find('form')[0];
+
+            form.props.onReset();
+
+            expect(fakeSearchHandler).to.be.calledWith('');
+        });
 
         it('should show only Categories with search text', () => {
             const renderer = new fake.AppRenderer({
@@ -44,8 +52,3 @@ describe('Search input', () => {
         });
     });
 });
-//'search' input
-//  on change
-//      on 'cancel' button click
-//          should empty input field
-//          should show all categories

@@ -34,12 +34,30 @@ describe('Category Model', () => {
         expect(catModel.collection).to.deep.equal(fake.decreasedCatList);
     });
 
-    it('should search inside the names of Categories', () => {
-        const catModel = new CatModel(fake.storage);
+    describe('on search', () => {
+        it('should return List of Categories that contain searched text in their names', () => {
+            const catModel = new CatModel(fake.storage);
 
-        const foundCatList = catModel.search(fake.searchText);
+            const foundCatList = catModel.search(fake.searchText);
 
-        expect(foundCatList).to.deep.equal(fake.foundCatList);
+            expect(foundCatList).to.deep.equal(fake.foundCatList);
+        });
+
+        it('should return empty list when nothing found', () => {
+            const catModel = new CatModel(fake.storage);
+
+            const foundCatList = catModel.search('nonexistent search text');
+
+            expect(foundCatList).to.deep.equal([]);
+        });
+
+        it('should return a list with all Categories when searched for empty string', () => {
+            const catModel = new CatModel(fake.storage);
+
+            const foundCatList = catModel.search('');
+
+            expect(foundCatList).to.deep.equal(fake.catList);
+        });
     });
 });
 

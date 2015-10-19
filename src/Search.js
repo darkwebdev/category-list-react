@@ -9,9 +9,13 @@ export default class extends React.Component {
         this.props.onSearch(e.target.value);
     }
 
+    resetHandler() {
+        this.changeHandler({ target: { value: '' } });
+    }
+
     render() {
         return (
-            <form>
+            <form onReset={ this.resetHandler.bind(this) }>
                 <input className="search-input"
                        placeholder="Search"
                        onChange={ this.changeHandler.bind(this) }
