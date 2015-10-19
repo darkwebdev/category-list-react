@@ -1,5 +1,7 @@
 # category-list-react
-simple project in react.js
+Simple project in React
+
+[Preview](http://darkwebdev.github.io/category-list-react)
 
 ## Build
 
