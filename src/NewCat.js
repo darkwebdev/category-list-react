@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 
 export default class extends React.Component {
@@ -5,21 +6,21 @@ export default class extends React.Component {
         super(props);
 
         this.state = { value: '' };
-
-        this.cat = {
-            id: '20',
-            number: '0'
-        };
     }
 
     changeHandler(e) {
-        this.cat.name = e.target.value;
+        this.catName = e.target.value;
         this.setState({ value: e.target.value });
     }
     submitHandler(e) {
         e.preventDefault();
 
-        this.props.onSubmit(this.cat);
+        const cat = {
+            id: String(_.random(1000)), //ok for now
+            name: this.catName,
+            number: '0'
+        };
+        this.props.onSubmit(cat);
 
         //e.target.reset();
         this.setState({ value: '' });
@@ -27,7 +28,7 @@ export default class extends React.Component {
 
     render() {
         return (
-            <form onSubmit={ this.submitHandler.bind(this) }>
+            <form onSubmit={ this.submitHandler.bind(this) } className="new-cat">
                 <input className="new-cat-input"
                        placeholder="New category name"
                        onClick={ this.props.onClick }

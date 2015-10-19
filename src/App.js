@@ -13,7 +13,7 @@ export default class App extends React.Component {
         this.state = {
             newCatActive: props.newCatActive,
             searchActive: props.searchActive,
-            catList: this.catModel.collection
+            catList: this.catModel.get()
         };
     }
 
@@ -44,7 +44,7 @@ export default class App extends React.Component {
     }
     updateCatList(list) {
         this.setState({
-            catList: list || this.catModel.collection
+            catList: list || this.catModel.get()
         });
     }
 
