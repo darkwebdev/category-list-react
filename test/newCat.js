@@ -137,8 +137,6 @@ describe('Add Category input', () => {
 
 //'add category' input
 //  on click
-//      on 'enter' key press
-//          should hide a hint message
-//      on 'esc' key press
+//      on 'esc' key press ???
 //          should empty itself
 //          should hide a hint message

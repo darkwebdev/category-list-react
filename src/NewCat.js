@@ -22,7 +22,6 @@ export default class extends React.Component {
         };
         this.props.onSubmit(cat);
 
-        //e.target.reset();
         this.setState({ value: '' });
     }
 
@@ -33,10 +32,11 @@ export default class extends React.Component {
                        placeholder="New category name"
                        onClick={ this.props.onClick }
                        onChange={ this.changeHandler.bind(this) }
-                       //defaultValue=''
                        value={ this.state.value }
                 />
-                <span className="new-cat-hint" visible={ this.props.active }>Press <i>Enter</i> to confirm</span>
+                <span className={ 'new-cat-hint' + (this.state.value ? ' visible' : '') }>
+                    Press <i>Enter</i> to confirm
+                </span>
             </form>
         );
     }

@@ -36,6 +36,14 @@ main {
 }
 .new-cat-hint {
     visibility: hidden;
+    font-size: 15px;
+}
+i {
+    color: #00A3C3;
+    font-style: normal;
+}
+.new-cat-hint.visible {
+    visibility: visible;
 }
 .search {
     position: relative;
