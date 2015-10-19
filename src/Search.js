@@ -16,7 +16,8 @@ export default class extends React.Component {
     render() {
         return (
             <form onReset={ this.resetHandler.bind(this) } className="search">
-                <input className="search-input"
+                <input type="search"
+                       className="search-input"
                        placeholder="Search"
                        onChange={ this.changeHandler.bind(this) }
                 />
