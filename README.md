@@ -12,6 +12,13 @@ npm run build
 Open `index.html` in browser
 
 
+## Lint
+
+```
+npm run lint
+```
+
+
 ## Test
 
 ```
