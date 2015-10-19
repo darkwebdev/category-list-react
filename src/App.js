@@ -33,13 +33,18 @@ export default class App extends React.Component {
     }
     addCat(cat) {
         this.catModel.add(cat);
+        this.updateCatList();
     }
     removeCat(id) {
         this.catModel.remove(id);
+        this.updateCatList();
     }
     searchCat(text) {
+        this.updateCatList(this.catModel.search(text));
+    }
+    updateCatList(list) {
         this.setState({
-            catList: this.catModel.search(text)
+            catList: list || this.catModel.collection
         });
     }
 

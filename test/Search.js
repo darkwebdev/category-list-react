@@ -35,9 +35,7 @@ describe('Search input', () => {
         });
 
         it('should show only Categories with search text', () => {
-            const renderer = new fake.AppRenderer({
-                catList: fake.catList
-            });
+            const renderer = new fake.AppRenderer();
 
             const search = renderer.getSearch();
             const catList = renderer.getCatList();

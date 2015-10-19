@@ -18,13 +18,13 @@ describe('Add Category input', () => {
 
     describe('on Enter Key pressed', () => {
         it('should call Add Category handler', () => {
-            const newCat = new NewCat({ active: true, onSubmit: fakeAddHandler });
-            const $comp = $(newCat.render()).shallowRender();
+            const $comp = fake.renderComp(NewCat, { active: true, onSubmit: fakeAddHandler });
+
             const form = $comp.find('form')[0];
             const input = $comp.find('.new-cat-input')[0];
 
             input.props.onChange({ target: { value: fake.catItem.name } });
-            form.props.onSubmit();
+            form.props.onSubmit(fake.event);
 
             expect(fakeAddHandler).to.be.calledWith(fake.catItem);
         });
@@ -66,8 +66,7 @@ describe('Add Category input', () => {
 
             beforeEach(() => {
                 renderer = new fake.AppRenderer({
-                    newCatActive: true,
-                    catList: fake.catList
+                    newCatActive: true
                 });
                 newCat = renderer.getNewCat();
             });
@@ -82,6 +81,25 @@ describe('Add Category input', () => {
                 expect(expectedNewCat.props.active).to.be.false;
             });
 
+            it('should clear the input', () => {
+                renderer = new fake.NewCatRenderer({
+                    active: true,
+                    onSubmit: _.noop
+                });
+
+                const emptyInput = renderer.getInput();
+                emptyInput.props.onChange({ target: { value: 'text' } });
+
+                const inputWithText = renderer.getInput();
+                expect(inputWithText.props.value).to.equal('text');
+
+                const form = renderer.getForm();
+                form.props.onSubmit(fake.event);
+
+                const expectedInput = renderer.getInput();
+                expect(expectedInput.props.value).to.equal('');
+            });
+
             it('should Add Category to the model', () => {
                 const newCatItem = {
                     id: '10',
@@ -91,7 +109,27 @@ describe('Add Category input', () => {
 
                 newCat.props.onSubmit(newCatItem);
 
-                expect(fake.catModel.add).to.have.been.calledWith(newCatItem);
+                expect(fake.catModel.add).to.be.calledWith(newCatItem);
+            });
+
+            it('should add Category to the view', () => {
+                const renderer = new fake.AppRenderer({
+                    catModel: _.extend({}, fake.catModel, {
+                        add: function() {
+                            this.collection = fake.increasedCatList;
+                        }
+                    })
+                });
+
+                const catList = renderer.getCatList();
+                expect(catList.props.list).to.deep.equal(fake.catList);
+
+                const newCat = renderer.getNewCat();
+                newCat.props.onSubmit(fake.catItem);
+
+                const increasedCatList = renderer.getCatList();
+
+                expect(increasedCatList.props.list).to.deep.equal(fake.increasedCatList);
             });
         });
     });
@@ -100,7 +138,6 @@ describe('Add Category input', () => {
 //'add category' input
 //  on click
 //      on 'enter' key press
-//          should empty itself
 //          should hide a hint message
 //      on 'esc' key press
 //          should empty itself
