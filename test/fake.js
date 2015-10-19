@@ -5,6 +5,7 @@ import TestUtils from 'react-addons-test-utils';
 import $ from 'teaspoon';
 
 import App from '../src/App';//todo: remove it from here
+import NewCat from '../src/NewCat';
 
 const catItem = {
     id: '20',
@@ -85,6 +86,13 @@ const storage = {
     setItem: _.noop
 };
 
+const event = {
+    preventDefault: _.noop,
+    target: {
+        reset: sinon.spy()
+    }
+};
+
 class AppRenderer {
     constructor(props) {
         const appProps = _.extend({ catModel: catModel }, App.defaultProps, props);
@@ -107,6 +115,20 @@ class AppRenderer {
     }
 }
 
+class NewCatRenderer {
+    constructor(props) {
+        this.renderer = TestUtils.createRenderer();
+        this.renderer.render(<NewCat { ...props } />);
+    }
+
+    getForm() {
+        return this.renderer.getRenderOutput();
+    }
+    getInput() {
+        return this.renderer.getRenderOutput().props.children[0];
+    }
+}
+
 const renderComp = (Comp, props) => {
     const comp = new Comp(_.extend({}, Comp.defaultProps || {}, props));
     return $(comp.render()).shallowRender();
@@ -121,6 +143,8 @@ export default {
     decreasedCatList: decreasedCatList,
     catModel: catModel,
     storage: storage,
+    event: event,
     AppRenderer: AppRenderer,
+    NewCatRenderer: NewCatRenderer,
     renderComp: renderComp
 };
